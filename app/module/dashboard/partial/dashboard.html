@@ -1,0 +1,251 @@
+<div class="dash-wrapper">
+
+	<nav class="navbar navbar-default navbar-fixed-top"> 
+		<p class="col-md-10"> <a ui-sref="dashboard.home"> ISRC - 2016 </a></p>
+		<p class="col-md-2">  <a href="" ng-click="logout()" class="col-md-offset-8"> <span class="glyphicon glyphicon-off"></span> </a> </p>
+	</nav>
+	<div class="dash-container">
+
+		<div class="sidebar col-md-2">
+			<section>
+				<ul>
+					<li ui-sref-active="active" ui-sref="dashboard.home"> <a href=""> <span class="glyphicon glyphicon-dashboard"> Dashboard </span> </a> </li>
+          <li ui-sref-active="active" ui-sref="dashboard.grade"> <a href=""> <span class="glyphicon glyphicon-sort-by-attributes"> Student List </span></a> </li>
+          <li data-toggle="modal" data-target="#addstudent-modal" data-backdrop="false" > <a href=""> <span class="glyphicon glyphicon-user"> Add Student </span> </a> </li>
+          <!-- <li> <a href=""> <span class="glyphicon glyphicon-align-center"></span> Add Year</a> </li> -->
+          <li data-toggle="modal" data-target="#addlevel-modal"> <a href=""> <span class="glyphicon glyphicon-plus-sign"> Add Level </span> </a> </li>
+          <li data-toggle="modal" data-target="#addsection-modal"> <a href=""> <span class="glyphicon glyphicon-record"> Add Section </span> </a> </li>
+					<!-- <li> <a href=""> <span class="glyphicon glyphicon-th-list"></span> View Section</a> </li> -->
+			</ul>
+			</section>
+			<section class="date">
+				<center> <h2 id="timer"></h2> </center>
+				<center> <h5> {{today | date: 'EEEE, MMMM d, y'}} </h5> </center>
+			</section>
+			<section class="announcement">
+				<center> 
+          <!-- <h1>ENROLL NOW!!!</h1>  -->
+          <img src="assets/images/insan.jpg">
+        </center>
+			</section>
+		</div>
+		<section class="wrapper col-md-10"> 
+	 		<div ui-view=""></div>
+	 	</section>
+	</div>
+</div>
+
+<!-- ADD STUDENT MODAL -->
+<div class="modal fade" id="addstudent-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"> <span class="glyphicon glyphicon-plus"></span> </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" name="add_form" novalidate>
+        	<div class="row">
+        	<div class="col-sm-3">
+        		<img src="assets/images/insan.jpg">
+        	</div>
+        	<div class="col-sm-9">
+        		<div class="form-group col-sm-4">
+        			<label for="firstname">Firstname *</label>
+        				<input id="firstname" placeholder="First Name" type="text" class="form-control" ng-model="student.student_firstname" required>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="middlename">Middlename *</label>
+        				<input id="middlename" placeholder="Middle Name" type="text" class="form-control" ng-model="student.student_middlename" required>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="lastname">Lastname *</label>
+        				<input id="lastname" placeholder="Last Name" type="text" class="form-control"  ng-model="student.student_lastname" required>
+        		</div>
+        	</div>
+
+        	<div class="col-sm-9">
+        		<div class="form-group col-sm-4">
+        			<label for="status">Gender *</label>
+        				<select id="status" class="form-control" placeholder="Grade/Year to be enroll" ng-model="student.gender" required>
+        					<option value="Male">Male</option>
+	        				<option value="Female">Female</option>
+	        			</select>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="grade">Level *</label>
+        				<select id="grade" class="form-control" placeholder="Grade/Year to be enroll" ng-disabled="student.gender == null" ng-model="grade_level" required ng-options="l.grade_id as l.grade_no for l in level"> </select>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="section">Section *</label>
+        				<select id="section" class="form-control" placeholder="Grade/Year to be enroll" ng-disabled="grade_level == null || student.gender == null" ng-model="student.section_id" required>
+                  <option ng-repeat="s in sections" ng-show="s.grade_id == grade_level && s.section_gender == student.gender" ng-value="s.section_id"> {{s.section_name}} </option>
+	        			</select>
+        		</div>
+        	</div>
+
+        	<div class="col-sm-9">
+        		<div class="form-group col-sm-4">
+        			<label for="status">Status *</label>
+        				<select id="status" class="form-control" placeholder="Grade/Year to be enroll"  ng-model="student.student_status" required>
+        					<option value="Paid">Paid</option>
+	        				<option value="Dependent">Dependent</option>
+	        				<option value="Pending">Credit</option>
+	        			</select>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="datebirth">Date of Birth</label>
+        				<input id="datebirth" placeholder="mm-dd-yyyy" type="date" class="form-control" ng-model="student.student_db">
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="placebirth">Place of Birth</label>
+        				<input id="placebirth" placeholder="Place of Birth" type="text" class="form-control" ng-model="student.student_pb">
+        		</div>
+        	</div>
+
+        	<!-- <div class="col-sm-12"> -->
+      		<div class="form-group col-sm-6">
+      			<label for="contact">Contact No. *</label>
+      				<input id="contact" placeholder="Contact Number" type="text" class="form-control" ng-model="student.student_contact" required>
+      		</div>
+      		<div class="form-group col-sm-6">
+      			<label for="permanent">Permanent Address *</label>
+      				<input id="permanent" placeholder="Permanent Address" type="text" class="form-control" ng-model="student.student_pa" required>
+      		</div>
+      		<div class="form-group col-sm-6">
+      			<label for="home">Home Address</label>
+      				<input id="home" placeholder="Home Address" type="text" class="form-control" ng-model="student.student_ha">
+      		</div>
+        	<!-- </div> -->
+
+        	<div class="form-group col-sm-6">
+      			<label for="school">Name of School *</label>
+      				<input id="school" placeholder="Name of School" type="text" class="form-control" ng-model="student.student_school"  required>
+        	</div>
+
+        	<div class="form-group col-sm-8">
+      			<label for="schooladd">School Address</label>
+      				<input id="schooladd" placeholder="School Address" type="text" class="form-control" ng-model="student.school_add">
+      		</div>
+
+      		<div class="form-group col-sm-6">
+      			<label for="guardianName">Name of Guardian *</label>
+      				<input id="guardianName" placeholder="Name of Guardian" type="text" class="form-control" ng-model="student.student_guardian" required>
+      		</div>
+
+      		<div class="form-group col-sm-6">
+      			<label for="relation">Relationship *</label>
+      				<input id="relation" placeholder="Relationship" type="text" class="form-control" ng-model="student.guardian_relation" required>
+      		</div>
+
+      		<div class="form-group col-sm-6">
+      			<label for="guardianCont">Guardian Contact Number *</label>
+      				<input id="guardianCont" placeholder="Guardian Contact Number" type="text" class="form-control" ng-model="student.guardian_number" required>
+      		</div>
+
+      		<div class="form-group col-sm-6">
+      			<label for="guardianAdd">Guardian Address *</label>
+      				<input id="guardianAdd" placeholder="Guardian Address" type="text" class="form-control" ng-model="student.guardian_add" required>
+      		</div>
+					</div>
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="disable">Cancel</button>
+		        <button type="button" class="btn btn-primary" ng-click="add_student(student)" ng-disabled="disable"><span ng-hide="disable">Enroll</span><span ng-show="disable">Loading</span></button> </div> </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Section Modal -->
+<div class="modal fade" id="addsection-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"> <span class="glyphicon glyphicon-plus"></span> </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="row">
+          <!-- <div class="col-sm-3">
+            <img src="assets/images/insan.jpg">
+          </div> -->
+          <div class="col-sm-12">
+            <div class="form-group col-sm-6">
+              <label for="sectionname">Grade Level *</label>
+                <select id="sectioname" placeholder="Name of Section" type="text" class="form-control" ng-model="section_details.grade_id" ng-options="l.grade_id as l.grade_no for l in level"></select>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="sectionname">Name of Section *</label>
+                <input id="sectioname" placeholder="Name of Section" type="text" class="form-control" ng-model="section_details.section_name">
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group col-sm-6">
+              <label for="status">Gender *</label>
+                <select id="status" class="form-control" placeholder="Grade/Year to be enroll" ng-model="section_details.section_gender">
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="nostudent">No. Student *</label>
+                <input id="nostudent" placeholder="Number of Student" min="0" max="50" type="number" class="form-control" ng-model="section_details.max_student">
+            </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="add_section(section_details)">Save</button> </div> </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add LEVEL Modal -->
+<div class="modal fade" id="addlevel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"> <span class="glyphicon glyphicon-plus"></span> </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="row">
+          <!-- <div class="col-sm-3">
+            <img src="assets/images/insan.jpg">
+          </div> -->
+          <div class="col-sm-12">
+            <div class="form-group col-sm-6">
+              <label for="sectionname">Grade Level *</label>
+                <input id="sectioname" placeholder="Grade Level" type="text" class="form-control" ng-model="level_detail.grade_no">
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="sectionname">Name of Section *</label>
+                <input id="sectioname" placeholder="Name of Section" type="text" class="form-control" ng-model="section_detail.section_name">
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group col-sm-6">
+              <label for="status">Gender *</label>
+                <select id="status" class="form-control" placeholder="Grade/Year to be enroll" ng-model="section_detail.section_gender">
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="nostudent">No. Student *</label>
+                <input id="nostudent" placeholder="Number of Student" min="0" max="50" type="number" class="form-control" ng-model="section_detail.max_student">
+            </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="add_level(level_detail, section_detail)">Save</button> </div> </form>
+      </div>
+    </div>
+  </div>
+</div>

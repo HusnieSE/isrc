@@ -1,0 +1,51 @@
+<div class="section-container">
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h1 class="panel-title"> <a href="" ng-click="print('master-list')"><span class="glyphicon glyphicon-print"></span></a> </h1>
+			</div>
+			<!-- <div class="section panel-heading col-md-4">
+				<select class="form-control">
+					<option>Abubacar</option>
+					<option>Omar</option>
+					<option>Usman</option>
+					<option>Ali</option>
+				</select>
+			</div>
+			<div class="gender panel-heading col-md-4">
+				<div class="form-control">Gender: Male</div>
+			</div>
+			<div class="slot panel-heading col-md-4">
+				<div class="form-control"><span><b>Maximum:</b> 40</span> <span><b>Enrolled:</b> 30</span> <span><b>Slot:</b> 10</span></div>
+			</div> -->
+			<div class="panel-body" id="master-list">
+				<div class="table-responsive">
+					<h3 style="text-align: center; margin-top: 0; margin-bottom: 0"> Master List - {{students[0].grade_no}} </h3>
+					<h4 style="text-align: center; margin-top: 0"> {{students[0].section_name}} [{{students[0].section_gender}}] </h4>
+					<table class="table table-bordered table-striped table-hover">
+						<thead style="text-align: center">
+							<th>OR#</th>
+							<th>Name of Student</th>
+							<th>Gender</th>
+							<!-- <th>Address</th> -->
+							<th>School</th>
+							<th>Status</th>
+							<!-- <th>Enrolling Officer</th> -->
+						</thead>
+						<tbody>
+							<tr ui-sref="dashboard.profile({id: s.student_id})" ng-repeat="s in students | orderBy: 'student_lastname'">
+								<td> {{s.or_number}}</td>
+								<td> {{s.student_lastname | uppercase}}, {{s.student_firstname | uppercase}} {{s.student_middlename | uppercase}} </td>
+								<td> {{s.gender}} </td>
+								<!-- <td> {{s.student_pa}} </td> -->
+								<td> {{s.student_school}} </td>
+								<td> {{s.student_status}} </td>
+								<!-- <td> {{}} </td> -->
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

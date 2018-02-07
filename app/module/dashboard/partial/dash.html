@@ -1,0 +1,59 @@
+<div class="view-container">
+
+	<div class="col-md-4">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h2 class="panel-title"> No. of Enrolled Student </h2>
+			</div>
+			<div class="panel-body">
+				<h1> {{enrolled[0].count}} </h1>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h2 class="panel-title"> No. Of Dependent Student </h2>
+			</div>
+			<div class="panel-body">
+				<h1> {{dependent[0].count}} </h1>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				<h2 class="panel-title"> No. Of Pending Student </h2>
+			</div>
+			<div class="panel-body">
+				<h1> {{pending[0].count}} </h1>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="panel panel-success table-responsive">
+			<div class="panel-body">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th>#</th>
+						<th> Grade Level </th>
+						<th> Section Name </th>
+						<th> Gender </th>
+						<th> Target Student</th>
+						<th> Enrolled Student </th>
+					</thead>
+					<tbody>
+						<tr ui-sref="dashboard.section({param:l.section_id})" ng-repeat="l in levelList | orderBy: 'grade_no'">
+							<td> {{$index + 1}} </td>
+							<td> {{l.grade_no}} </td>
+							<td> {{l.section_name}} </td>
+							<td> {{l.section_gender}} </td>
+							<td> {{l.max_student}} </td>
+							<td> {{l.no_student}} </td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

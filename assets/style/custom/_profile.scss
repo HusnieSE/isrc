@@ -1,0 +1,28 @@
+.profile-container{
+	
+	.panel {
+		.panel-body{
+			img {
+				width: 2in;
+				height: 2in;
+			}
+
+			h1{
+				color: #428bca;
+				font-weight: bold;
+				font-family: serif;
+				text-align: right;
+			}
+
+			h2, h3 {
+				margin-top: 5px;
+				margin-bottom: 0; 
+			}
+
+			.bold {
+				text-align: left;
+				font-weight: bold;
+			}
+		}
+	}
+}

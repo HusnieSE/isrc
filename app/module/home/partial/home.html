@@ -1,0 +1,98 @@
+<div class="home-container">
+	<nav class="navbar navbar-default navbar-fixed-top">
+
+		<h3> Insan Summer Remedial Class </h3>
+		<!-- <div class="col-sm-6"> -->
+			<!-- <form class="form-inline" role="form" name="login_form">
+				<div class="form-group">
+					<div class="input-group">
+						<label class=" ">Username</label>
+						<input type="text" class="form-control" placeholder="Enter Username">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<label class="">Password</label>
+						<input type="password" class="form-control" placeholder="Enter Password">
+					</div>
+				</div>
+			</form> -->
+		<!-- </div> -->
+	</nav>
+
+	<div class="jumbotron">
+		<div class="container">
+			<!-- <button type="button" class="btn btn-success btn-md" data-backdrop="false" data-keyboard="false" data-toggle="modal" data-target="#login-modal"> Sign in </button> -->
+			<div class="col-sm-8 main"> <h1> ISRC Enrollment System </h1>
+				<img src="assets/images/insan.jpg">
+			</div>
+			<div class="col-sm-4">
+				<form role="form">
+        	<div class="form-group">
+	        	<label for="username" class="control-label"> Username </label> 
+	        	<input class="input-lg form-control" id="username" type="text" ng-model="account.username" placeholder="Username"> 
+	        </div>
+	        <div class="form-group">
+	        	<label for="password" class="control-label"> Password </label> 
+	        	<input class="input-lg form-control" id="password" type="password" ng-model="account.password" placeholder="Password"> 
+	        </div>
+	        <button type="button" class="btn btn-primary btn-lg" ng-disabled="disable" ng-click="login(account)">
+	        	<span ng-show="disable">Wait</span><span ng-hide="disable">Sign in</span>
+	        </button>
+	        <button type="button" data-toggle="modal" data-target="#signup-modal" class="btn btn-success btn-lg" ng-disabled="disable">
+	        	<span>Create Account</span>
+	        </button>
+		    </form>
+			</div>
+	</div>
+	</div>
+
+	<nav class="navbar navbar-default navbar-fixed-bottom"> <p>Copyright@2016</p> </nav>
+</div>
+
+<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-disabled="disable"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+        	<div class="form-group">
+	        	<label for="username"> Firstname </label> 
+	        	<input class="form-control" id="username" type="text" ng-model="user.user_firstname" placeholder="Firstname"> </div>
+	        <div class="form-group">
+	        	<label for="username"> Middlename </label> 
+	        	<input class="form-control" id="username" type="text" ng-model="user.user_middlename" placeholder="Middlename"> </div>
+	        <div class="form-group">
+	        	<label for="username"> LastName </label> 
+	        	<input class="form-control" id="username" type="text" ng-model="user.user_lastname" placeholder="lastname"> </div>
+	        <div class="form-group">
+	        	<label for="username"> Username </label> 
+	        	<input class="form-control" id="username" type="text" ng-model="acc.account_username" placeholder="Username"> </div>
+	        <div class="form-group">
+	        	<label for="password"> Password </label> 
+	        	<input class="form-control" id="password" type="password" ng-model="acc.account_password" placeholder="Password"> </div>
+	        <div class="form-group">
+	        	<label for="password"> Confirm Password </label> 
+	        	<input class="form-control" id="password" type="password" ng-model="confirm" placeholder="Password"> </div>
+
+	        <div class="form-group modal-footer">
+	        	<button type="button" class="btn btn-default" ng-disabled="disable" data-dismiss="modal">Cancel</button>
+		        <button type="button" class="btn btn-primary" ng-disabled="disable || acc.account_password != confirm" ng-click="signup()">
+		        	<span ng-show="disable">Wait</span><span ng-hide="disable">Save</span></button> </div> </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="loading-modal" data-backdrop="static" dat-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+      	<h3>Please wait... the database is being construct.</h3>
+      </div>
+    </div>
+  </div>
+</div>

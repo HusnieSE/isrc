@@ -1,0 +1,43 @@
+<div class="section-container">
+	<div class="col-sm-4"> <input type="text" ng-model="filter" class="form-control" placeholder="Search Here..."> </div>
+	<div class="col-sm-12">
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				<h2 class="panel-title"> List Of Student </h2>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+<!-- 					<button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#addsection-modal"> <span class="glyphicon glyphicon-plus"></span>ADD SECTION</button> -->
+					<table class="table table-bordered table-striped table-hover">
+						<thead>
+							<th>OR#</th>
+							<th>Student</th>
+							<th>Gender</th>
+							<!-- <th>Address</th> -->
+							<th>Contact</th>
+							<th>School</th>
+							<th>Status</th>
+							<th>Enrolling Officer</th>
+						</thead>
+						<tbody>
+							<tr ui-sref="dashboard.profile({id: s.student_id})" ng-repeat="s in students | orderBy:'student_lastname' | filter: filter as result">
+								<td> {{s.or_number}} </td>
+								<td> {{s.student_lastname | uppercase}}, {{s.student_firstname | uppercase}} {{s.student_middlename | uppercase}} </td>
+								<td> {{s.gender}} </td>
+								<!-- <td> {{s.student_pa}} </td> -->
+								<td> {{s.student_contact}} </td>
+								<td> {{s.student_school}} </td>
+								<td> {{s.student_status}} </td>
+								<td> {{s.user_firstname}} {{s.user_middlename}} {{s.user_lastname}}</td>
+							</tr>
+							<tr ng-if="result.length == 0">
+								<td colspan="7"> NO RESULT FOUND. </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-footer"></div>
+		</div>
+	</div>
+</div>

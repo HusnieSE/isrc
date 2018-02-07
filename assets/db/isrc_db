@@ -1,0 +1,119 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+CREATE DATABASE isrc_db
+
+CREATE TABLE IF NOT EXISTS `academic_years` (
+`academic_id` int(11) NOT NULL,
+  `academic_year` int(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `account` (
+`account_id` int(11) NOT NULL,
+  `account_username` varchar(20) DEFAULT NULL,
+  `account_password` varchar(20) DEFAULT NULL,
+  `account_status` varchar(10) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+INSERT INTO `account` (`account_id`, `account_username`, `account_password`, `account_status`, `user_id`) VALUES
+(1, 'admin', 'admin', NULL, 1);
+
+CREATE TABLE IF NOT EXISTS `grades` (
+`grade_id` int(11) NOT NULL,
+  `grade_no` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `sections` (
+`section_id` int(11) NOT NULL,
+  `section_name` varchar(20) DEFAULT NULL,
+  `grade_id` int(11) DEFAULT NULL,
+  `max_student` int(11) NOT NULL,
+  `section_gender` enum('Male','Female') NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `students` (
+`student_id` int(11) NOT NULL,
+  `student_firstname` varchar(20) DEFAULT NULL,
+  `student_middlename` varchar(20) DEFAULT NULL,
+  `student_lastname` varchar(10) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL,
+  `academic_id` int(11) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `student_status` varchar(20) DEFAULT NULL,
+  `student_db` date DEFAULT NULL,
+  `student_pb` varchar(50) DEFAULT NULL,
+  `student_contact` varchar(15) DEFAULT NULL,
+  `student_pa` varchar(50) DEFAULT NULL,
+  `student_ha` varchar(50) DEFAULT NULL,
+  `student_school` varchar(50) DEFAULT NULL,
+  `school_add` varchar(50) DEFAULT NULL,
+  `student_guardian` varchar(50) DEFAULT NULL,
+  `guardian_relation` varchar(20) DEFAULT NULL,
+  `guardian_number` varchar(15) DEFAULT NULL,
+  `guardian_add` varchar(50) DEFAULT NULL,
+  `or_number` varchar(20) DEFAULT NULL,
+  `date_enrolled` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `users` (
+`user_id` int(11) NOT NULL,
+  `user_firstname` varchar(20) DEFAULT NULL,
+  `user_middlename` varchar(20) DEFAULT NULL,
+  `user_lastname` varchar(20) DEFAULT NULL,
+  `user_position` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+INSERT INTO `users` (`user_id`, `user_firstname`, `user_middlename`, `user_lastname`, `user_position`) VALUES
+(1, 'admin', 'admin', 'admin', 'Registrar');
+
+ALTER TABLE `academic_years`
+ ADD PRIMARY KEY (`academic_id`);
+
+ALTER TABLE `account`
+ ADD PRIMARY KEY (`account_id`), ADD KEY `user_id` (`user_id`);
+
+ALTER TABLE `grades`
+ ADD PRIMARY KEY (`grade_id`);
+
+ALTER TABLE `sections`
+ ADD PRIMARY KEY (`section_id`), ADD KEY `grade_id` (`grade_id`);
+
+ALTER TABLE `students`
+ ADD PRIMARY KEY (`student_id`), ADD UNIQUE KEY `or_number` (`or_number`), ADD KEY `user_id` (`user_id`), ADD KEY `academic_id` (`academic_id`), ADD KEY `section_id` (`section_id`);
+
+ALTER TABLE `users`
+ ADD PRIMARY KEY (`user_id`);
+
+ALTER TABLE `academic_years`
+MODIFY `academic_id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `account`
+MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+
+ALTER TABLE `grades`
+MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+
+ALTER TABLE `sections`
+MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+
+ALTER TABLE `students`
+MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=74;
+
+ALTER TABLE `users`
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+
+ALTER TABLE `account`
+ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+ALTER TABLE `sections`
+ADD CONSTRAINT `sections_ibfk_1` FOREIGN KEY (`grade_id`) REFERENCES `grades` (`grade_id`);
+
+ALTER TABLE `students`
+ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+ADD CONSTRAINT `students_ibfk_2` FOREIGN KEY (`section_id`) REFERENCES `sections` (`section_id`),
+ADD CONSTRAINT `students_ibfk_3` FOREIGN KEY (`academic_id`) REFERENCES `academic_years` (`academic_id`),
+ADD CONSTRAINT `students_ibfk_4` FOREIGN KEY (`section_id`) REFERENCES `sections` (`section_id`),
+ADD CONSTRAINT `students_ibfk_5` FOREIGN KEY (`academic_id`) REFERENCES `academic_years` (`academic_id`);
+

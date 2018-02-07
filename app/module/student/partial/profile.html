@@ -1,0 +1,156 @@
+<div class="profile-container">
+
+	<div class="panel panel-primary">
+
+		<div class="panel-body" ng-repeat="s in student_detail">
+			<div class="col-sm-3">
+				<img src="assets/images/insan.jpg">
+			</div>
+			<div class="col-sm-9">
+				<h1> <a href="" data-toggle="modal" data-target="#editstudent-modal" ng-click="(edit(s))"><span class="glyphicon glyphicon-edit"></span></a>
+        <a href="" ng-click="(print())"><span class="glyphicon glyphicon-print"></span></a> {{s.student_firstname | uppercase}} {{s.student_middlename | uppercase}} {{s.student_lastname | uppercase}} </h1>
+
+				<h3 class="col-sm-4 bold">Status</h3> <h3 class="col-sm-8">: {{s.student_status}} </h3>
+				<h3 class="col-sm-4 bold">Gender</h3> <h3 class="col-sm-8">: {{s.gender}} </h3>
+				<h3 class="col-sm-4 bold">Grade Level</h3> <h3 class="col-sm-8">: {{s.grade_no}} / {{s.section_name}} </h3>
+				<!-- <h3 class="col-sm-4 bold">Section</h3> <h3 class="col-sm-8">: {{s.section_name}} </h3> -->
+				<h3 class="col-sm-4 bold">Contact Number</h3> <h3 class="col-sm-8">: {{s.student_contact}} </h3>
+			</div>
+
+			<div class="col-sm-12">
+				<h3 class="col-sm-3 bold">Date of Birth</h3> <h3 class="col-sm-9">: {{s.student_db | date:'EEEE MMMM dd, yyyy'}} </h3>
+				<h3 class="col-sm-3 bold">Place of Birth</h3> <h3 class="col-sm-9">: {{s.student_pb}} </h3>
+				<h3 class="col-sm-3 bold">Permanent Add</h3> <h3 class="col-sm-9">: {{s.student_pa}} </h3>
+				<h3 class="col-sm-3 bold">Home Add</h3> <h3 class="col-sm-9">: {{s.student_ha}} </h3>
+				<h3 class="col-sm-3 bold">School</h3> <h3 class="col-sm-9">: {{s.student_school}} </h3>
+				<h3 class="col-sm-3 bold">School Add</h3> <h3 class="col-sm-9">: {{s.school_add}} </h3>
+				<h3 class="col-sm-3 bold">Guardian</h3> <h3 class="col-sm-9">: {{s.student_guardian}} </h3>
+				<h3 class="col-sm-3 bold">Address</h3> <h3 class="col-sm-9">: {{s.guardian_add}} </h3>
+				<h3 class="col-sm-3 bold">Relation</h3> <h3 class="col-sm-9">: {{s.guardian_relation}} </h3>
+				<h3 class="col-sm-3 bold">Contact #</h3> <h3 class="col-sm-9">: {{s.guardian_number}} </h3>
+			</div>
+	</div>
+</div>
+
+<!-- ADD STUDENT MODAL -->
+<div class="modal fade" id="editstudent-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"> <span class="glyphicon glyphicon-plus"></span> </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" name="add_form" novalidate>
+        	<div class="row">
+        	<div class="col-sm-3">
+        		<img src="assets/images/insan.jpg">
+        	</div>
+        	<div class="col-sm-9">
+        		<div class="form-group col-sm-4">
+        			<label for="firstname">Firstname *</label>
+        				<input id="firstname" placeholder="First Name" type="text" class="form-control" ng-model="student.student_firstname" required>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="middlename">Middlename *</label>
+        				<input id="middlename" placeholder="Middle Name" type="text" class="form-control" ng-model="student.student_middlename" required>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="lastname">Lastname *</label>
+        				<input id="lastname" placeholder="Last Name" type="text" class="form-control"  ng-model="student.student_lastname" required>
+        		</div>
+        	</div>
+
+        	<div class="col-sm-9">
+        		<div class="form-group col-sm-4">
+        			<label for="status">Gender *</label>
+        				<select id="status" class="form-control" placeholder="Grade/Year to be enroll" ng-model="student.gender" required>
+        					<option value="Male">Male</option>
+	        				<option value="Female">Female</option>
+	        			</select>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="grade">Level *</label>
+        				<select id="grade" class="form-control" placeholder="Grade/Year to be enroll" ng-model="grade_level" required>
+        					<option ng-repeat="l in level" ng-value="l.grade_id" ng-selected="grade_id == l.grade_id"> {{l.grade_no}} </option>
+        				</select>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="section">Section *</label>
+        				<select id="section" class="form-control" placeholder="Grade/Year to be enroll" ng-model="student.section_id" required>
+                  <option ng-repeat="s in sections" ng-show="(s.grade_id == grade_level || s.grade_id == grade_id) && s.section_gender == student.gender" ng-value="s.section_id" ng-selected="section_id == s.section_id"> {{s.section_name}} </option>
+	        			</select>
+        		</div>
+        	</div>
+
+        	<div class="col-sm-9">
+        		<div class="form-group col-sm-4">
+        			<label for="status">Status *</label>
+        				<select id="status" class="form-control" placeholder="Grade/Year to be enroll"  ng-model="student.student_status" required>
+        					<option value="Paid">Paid</option>
+	        				<option value="Dependent">Dependent</option>
+	        				<option value="Pending">Credit</option>
+	        			</select>
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="datebirth">Date of Birth </label>
+        				<input id="datebirth" placeholder="yyyy/MMMM/dd" type="date" class="form-control" ng-model="student.student_db">
+        		</div>
+        		<div class="form-group col-sm-4">
+        			<label for="placebirth">Place of Birth</label>
+        				<input id="placebirth" placeholder="Place of Birth" type="text" class="form-control" ng-model="student.student_pb">
+        		</div>
+        	</div>
+
+        	<!-- <div class="col-sm-12"> -->
+      		<div class="form-group col-sm-6">
+      			<label for="contact">Contact No. *</label>
+      				<input id="contact" placeholder="Contact Number" type="text" class="form-control" ng-model="student.student_contact" required>
+      		</div>
+      		<div class="form-group col-sm-6">
+      			<label for="permanent">Permanent Address *</label>
+      				<input id="permanent" placeholder="Permanent Address" type="text" class="form-control" ng-model="student.student_pa" required>
+      		</div>
+      		<div class="form-group col-sm-6">
+      			<label for="home">Home Address</label>
+      				<input id="home" placeholder="Home Address" type="text" class="form-control" ng-model="student.student_ha">
+      		</div>
+        	<!-- </div> -->
+
+        	<div class="form-group col-sm-6">
+      			<label for="school">Name of School *</label>
+      				<input id="school" placeholder="Name of School" type="text" class="form-control" ng-model="student.student_school"  required>
+        	</div>
+
+        	<div class="form-group col-sm-8">
+      			<label for="schooladd">School Address</label>
+      				<input id="schooladd" placeholder="School Address" type="text" class="form-control" ng-model="student.school_add">
+      		</div>
+
+      		<div class="form-group col-sm-6">
+      			<label for="guardianName">Name of Guardian *</label>
+      				<input id="guardianName" placeholder="Name of Guardian" type="text" class="form-control" ng-model="student.student_guardian" required>
+      		</div>
+
+      		<div class="form-group col-sm-6">
+      			<label for="relation">Relationship *</label>
+      				<input id="relation" placeholder="Relationship" type="text" class="form-control" ng-model="student.guardian_relation" required>
+      		</div>
+
+      		<div class="form-group col-sm-6">
+      			<label for="guardianCont">Guardian Contact Number *</label>
+      				<input id="guardianCont" placeholder="Guardian Contact Number" type="text" class="form-control" ng-model="student.guardian_number" required>
+      		</div>
+
+      		<div class="form-group col-sm-6">
+      			<label for="guardianAdd">Guardian Address *</label>
+      				<input id="guardianAdd" placeholder="Guardian Address" type="text" class="form-control" ng-model="student.guardian_add" required>
+      		</div>
+					</div>
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="disable">Cancel</button>
+		        <button type="button" class="btn btn-primary" ng-click="save(student_id, student)" ng-disabled="disable"><span ng-hide="disable">Save</span><span ng-show="disable">Loading</span></button> </div> </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.view-container{
+	.col-md-4{
+		.panel{
+			text-align: center;
+		}
+	}
+	table{
+		text-align: center;
+		thead{
+			th{
+				text-align: center;
+				font-size: 1.5em;
+			}
+		}
+		tbody{
+			tr{
+
+				&:hover{
+
+					background-color: #bce8f1;
+				}
+			}
+		}
+	}
+}

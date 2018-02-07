@@ -1,0 +1,65 @@
+.home-container{
+
+	.navbar {
+
+		margin-bottom: 0;
+		background-color: rgba(0, 128, 0, 0);
+
+		p{
+			color: white;
+			text-align: center;
+			padding-top: 1.5em;
+		}
+		h3{
+			color: white;
+			padding-left: 1.5em;
+			padding-bottom: 0;
+			margin-bottom: 0;
+		}
+	}
+	.jumbotron{
+			background-color: rgba(0, 0, 0, 0);
+			background-image: url('../images/8.jpg');
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			margin-bottom: 0;
+			padding-top: 4em;
+			height: 750px;
+			h1, h2 {
+				font-family: Times New Roman;
+				color: rgba(53, 126, 189, 0.5);
+			}
+
+			.main {
+				text-align: center;
+			}
+			p{
+
+				color: rgba(4, 4, 4, 0.41);
+				text-align: justify;
+				background-color: rgba(255, 255, 255, 0.15);
+				border-radius: 0.5em;
+				padding: 0.5em 0.5em;
+			}
+
+			img{
+				opacity: .5;
+				border-radius: 15em;
+			}
+
+			form{
+
+		    border: rgba(0, 0, 0, 0.26) 3px solid;
+		    border-radius: 1em;
+		    padding: 4.5em 1em;
+
+		    label{
+
+		    	color: rgb(222, 34, 96);
+		    	font-size: 27px;
+		    }
+			}
+		
+	}
+}
